@@ -2,42 +2,49 @@ using System.Collections.Generic;
 
 namespace CDOrganizer.Models
 {
-  public class CD
+  public class Artist
   {
-    private static List<CD> _instances = new List<CD> {};
-    private string _title;
+    private static List<Artist> _artists = new List<Artist>{};
+    private string _name;
     private int _id;
-    private List<Artist> _artist;
+    private List<CD> _instances;
 
-    public CD (string CDTitle)
+    public Artist (string Name)
     {
-      _title = title;
-      _instances.Add(this);
-      _id = instances.Count;
-      _artists = new List<Artist>{};
+      _name = Name;
+      _artists.Add(this);
+      _id = Instances.Count;
+      _instances = new List<Artist>{};
     }
 
-  public string Title { get => _title; set => _title = value; }
-  public static List<CD> Instance { get => _instance; set => _instance = value; }
-  public int Id { get => _id; set => _id = value; }
-  public static List<Artist> Artist { get => _artist; set => _artist; }
+    public int ID { get => _id; set => _id = value; }
+    public string Name { get => _name; set => _name = value; }
+    public List<CD> Instances { get => _instances; set => _instances = value; }
 
-  public static void ClearAll()
+    public static void ClearAll()
     {
-      _instances.Clear();
+      _artists.Clear();
     }
 
-    public static List<CD> GetAll()
+    public static List<Artist> GetAll()
+    {
+      return _artists;
+    }
+
+    public static Artist Find(int searchId)
+    {
+      return _artists[searchId-1];
+    }
+
+    public void AddCD(CD cd)
+    {
+      _artists.Add(cd);
+    }
+
+    public List<CD> GetCDs()
     {
       return _instances;
     }
-
-    public static CD Find(int searchId)
-    {
-      return _instances[searchId-1];
-    }
-
-
 
   }
 }

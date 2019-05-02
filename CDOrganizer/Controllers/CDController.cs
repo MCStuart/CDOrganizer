@@ -1,58 +1,58 @@
 using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.Models;
+using CDOrganizer.Models;
 
 namespace CDOrganizer.Controllers
 {
   public class CDController : Controller
   {
-
-    [HttpGet("/categories")]
-    public ActionResult Index()
-    {
-      List<Category> allCategories = Category.GetAll();
-      return View(allCategories);
-    }
-
-    [HttpGet("/categories/new")]
-    public ActionResult New()
-    {
-      return View();
-    }
-
-    [HttpPost("/categories")]
-    public ActionResult Create(string categoryName)
-    {
-      Category newCategory = new Category(categoryName);
-      List<Category> allCategories = Category.GetAll();
-      return View("Index", allCategories);
-    }
-
-    [HttpGet("/categories/{id}")]
-    public ActionResult Show(int id)
-    {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Category selectedCategory = Category.Find(id);
-      List<Item> categoryItems = selectedCategory.GetItems();
-      model.Add("category", selectedCategory);
-      model.Add("items", categoryItems);
-      return View(model);
-    }
-
-    // This one creates new Items within a given Category, not new Categories:
-    [HttpPost("/categories/{categoryId}/items")]
-    public ActionResult Create(int categoryId, string itemDescription)
-    {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Category foundCategory = Category.Find(categoryId);
-      Item newItem = new Item(itemDescription);
-      foundCategory.AddItem(newItem);
-      List<Item> categoryItems = foundCategory.GetItems();
-      model.Add("items", categoryItems);
-      model.Add("category", foundCategory);
-      return View("Show", model);
-    }
+    // 
+    // [HttpGet("/artists")]
+    // public ActionResult Index()
+    // {
+    //   List<Artist> allCDs = Artist.Instances;
+    //   return View(allCDs);
+    // }
+    //
+    // [HttpGet("/artists/new")]
+    // public ActionResult New()
+    // {
+    //   return View();
+    // }
+    //
+    // [HttpPost("/artists")]
+    // public ActionResult Create(string artistName)
+    // {
+    //   Artist newArtist = new Artist(artistName);
+    //   List<Artist> allArtists = Artist.GetAll();
+    //   return View("Index", allArtists);
+    // }
+    //
+    // [HttpGet("/artists/{id}")]
+    // public ActionResult Show(int id)
+    // {
+    //   Dictionary<string, object> model = new Dictionary<string, object>();
+    //   Artist selectedArtist = Artist.Find(id);
+    //   List<CD> ArtistCDs = selectedArtist.GetCDs();
+    //   model.Add("artist", selectedArtist);
+    //   model.Add("CDs", ArtistCDs);
+    //   return View(model);
+    // }
+    //
+    // // This one creates new CDs within a given Artist, not new Artists:
+    // [HttpPost("/artists/{artistId}/CDs")]
+    // public ActionResult Create(int artistId, string cdDescription)
+    // {
+    //   Dictionary<string, object> model = new Dictionary<string, object>();
+    //   Artist foundArtist = Artist.Find(artistId);
+    //   CD newCD = new CD(cdDescription);
+    //   foundArtist.AddCD(newCD);
+    //   List<CD> artistCDs = foundArtist.GetCDs();
+    //   model.Add("CDs", artistCDs);
+    //   model.Add("artist", foundArtist);
+    //   return View("Show", model);
+    // }
 
   }
 }
